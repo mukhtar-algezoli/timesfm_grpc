@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+message prev_values {
+    float value=1;
+}
+
+message future_values {
+    float value=1;
+}
+
+
+service PredictAgri {
+    rpc predict_metric (stream prev_values) returns (stream future_values);
+}
+
