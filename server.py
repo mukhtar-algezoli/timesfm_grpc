@@ -7,7 +7,7 @@ import grpc
 import timesfm_pb2
 import timesfm_pb2_grpc
 from concurrent import futures
-import timesfm
+# import timesfm
 
 class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
     def __init__(self) -> None:
