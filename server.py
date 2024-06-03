@@ -36,7 +36,7 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         
         forcasts = self.tfm.forecast(
             [np.sin(np.linspace(0, 20, 100))],
-            freq="W" #Weekly,
+            freq=1 #Weekly,
             )
         print(forcasts)
 
