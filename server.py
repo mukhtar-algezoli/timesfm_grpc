@@ -29,9 +29,9 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         for request in request_iter:
             # print(request.value)
             forecast_input.append(request.value)
-            yield timesfm_pb2.future_values(value = request.value)
+            # yield timesfm_pb2.future_values(value = request.value)
         
-        # print(hist_values)
+        print(forecast_input)
         
         forcasts = self.tfm.forecast(
             forecast_input,
