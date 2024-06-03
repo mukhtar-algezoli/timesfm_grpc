@@ -13,16 +13,16 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
     def __init__(self) -> None:
         super().__init__()
         pass
-        # tfm = timesfm.TimesFm(
-        #     context_len=480,
-        #     horizon_len=14,
-        #     input_patch_len=32,
-        #     output_patch_len=128,
-        #     num_layers=20,
-        #     model_dims=1280,
-        #     backend="cpu",
-        # )
-        # self.model = tfm.load_from_checkpoint(repo_id="google/timesfm-1.0-200m")
+        tfm = timesfm.TimesFm(
+            context_len=480,
+            horizon_len=14,
+            input_patch_len=32,
+            output_patch_len=128,
+            num_layers=20,
+            model_dims=1280,
+            backend="cpu",
+        )
+        self.model = tfm.load_from_checkpoint(repo_id="google/timesfm-1.0-200m")
 
     def predict_metric(self, request_iter, context):
 
@@ -31,6 +31,23 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
             # do something with the request
             response = request.value
             yield timesfm_pb2.future_values(value = response)
+
+# class Timesfm:
+#     def __init__(self) -> None:
+#         tfm = timesfm.TimesFm(
+#             context_len=480,
+#             horizon_len=14,
+#             input_patch_len=32,
+#             output_patch_len=128,
+#             num_layers=20,
+#             model_dims=1280,
+#             backend="cpu",
+#         )
+#         self.model = tfm.load_from_checkpoint(repo_id="google/timesfm-1.0-200m")
+    
+#     def predict(self, df):
+        
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
