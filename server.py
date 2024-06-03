@@ -16,7 +16,7 @@ class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
         pass
         self.tfm = timesfm.TimesFm(
             context_len=480,
-            horizon_len=12,
+            horizon_len=60,
             input_patch_len=32,
             output_patch_len=128,
             num_layers=20,
@@ -33,7 +33,7 @@ class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
             request_iter: protobuf request with metric values of the prev 5 months
         
          Returns:
-            metric data for the last 5 months
+            metric data for the last 7 months
         """
         print(f"::Incoming Request #{self.num_requests}::")
         request_hist_values = []
