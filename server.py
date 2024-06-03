@@ -7,6 +7,7 @@ import grpc
 import timesfm_pb2
 import timesfm_pb2_grpc
 from concurrent import futures
+import numpy as np
 import timesfm
 
 class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
@@ -34,7 +35,7 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         print(forecast_input)
         
         forcasts = self.tfm.forecast(
-            forecast_input,
+            np.array(forecast_input),
             freq="W" #Weekly,
             )
         print(forcasts)
