@@ -4,13 +4,13 @@
 # replace [GRPC_METHOD_NAME] with the method name (name after rpc command)
 # replace [GRPC_SERVICE_RETURN_TYPE] with the return type that was declared in a message
 import grpc
-import timesfm_pb2
-import timesfm_pb2_grpc
+import pb.timesfm_pb2
+import pb.timesfm_pb2_grpc
 from concurrent import futures
 import numpy as np
 import timesfm
 
-class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
+class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
     def __init__(self) -> None:
         super().__init__()
         pass
@@ -27,6 +27,14 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         self.num_requests = 0
 
     def predict_metric(self, request_iter, context):
+        """
+        grpc server method that predicts metric for the next three months
+        Parameters::
+            request_iter: protobuf request with metric values of the prev 5 months
+        
+         Returns:
+            metric data for the last 5 months
+        """
         print(f"::Incoming Request #{self.num_requests}::")
         request_hist_values = []
         for request in request_iter:
@@ -47,14 +55,14 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         self.num_requests += 1
 
         for forcast in point_forecast[0]:
-            yield timesfm_pb2.future_values(value = forcast)
+            yield pb.timesfm_pb2.future_values(value = forcast)
 
         
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    timesfm_pb2_grpc.add_PredictAgriServicer_to_server(
+    pb.timesfm_pb2_grpc.add_PredictAgriServicer_to_server(
         Predict_Metrics(), server
     )
     server.add_insecure_port("[::]:50051")

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import timesfm_pb2 as timesfm__pb2
+import pb.timesfm_pb2 as timesfm__pb2
 
 
 class PredictAgriStub(object):
