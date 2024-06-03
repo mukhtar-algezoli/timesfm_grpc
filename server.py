@@ -25,17 +25,22 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         self.model = tfm.load_from_checkpoint(repo_id="google/timesfm-1.0-200m")
 
     def predict_metric(self, request_iter, context):
-        hist_values = []
+        forecast_input = []
         for request in request_iter:
             print(request.value)
-            hist_values.append(request.value)
+            forecast_input.append(request.value)
             yield timesfm_pb2.future_values(value = request.value)
         
         # print(hist_values)
         
-        # self.model.forecast(
-        #     forecast_input,
-        #     freq=frequency_input,)
+        forcasts = self.model.forecast(
+            forecast_input,
+            freq="W" #Weekly,
+            )
+        print(forcasts)
+
+        for forcast in forcasts:
+            yield timesfm_pb2.future_values(value = request.value)
 
         
 

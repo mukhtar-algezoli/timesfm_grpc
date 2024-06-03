@@ -12,7 +12,7 @@ def run():
         stub = timesfm_pb2_grpc.PredictAgriStub(channel)
         # calling function from Server
         # feature = stub.GetDirMeth(test_pb2.point(lang=35, lat=22))
-        features = stub.predict_metric(iter([timesfm_pb2.prev_values(value=i, date=f"{i}/2/2024") for i in range(4,9)]))
+        features = stub.predict_metric(iter([timesfm_pb2.prev_values(value=i, date=f"{i}/2/2024") for i in range(0,60)]))
         print("server streaming:")
         outputs = []
         for feature in features:
