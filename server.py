@@ -16,7 +16,7 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         pass
         self.tfm = timesfm.TimesFm(
             context_len=480,
-            horizon_len=14,
+            horizon_len=12,
             input_patch_len=32,
             output_patch_len=128,
             num_layers=20,
@@ -24,25 +24,16 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
             backend="cpu",
         )
         self.tfm.load_from_checkpoint(repo_id="google/timesfm-1.0-200m")
+        self.num_requests = 0
 
     def predict_metric(self, request_iter, context):
-        forecast_input = []
+        print(f"::Incoming Request #{self.num_requests}::")
+        request_hist_values = []
         for request in request_iter:
-            # print(request.value)
-            forecast_input.append(request.value)
-            # yield timesfm_pb2.future_values(value = request.value)
+            request_hist_values.append(request.value)
         
-        # print(forecast_input)
-        
-        # forcasts = self.tfm.forecast(
-        #     [np.sin(np.linspace(0, 20, 100))],
-        #     freq=1 #Weekly,
-        #     )
-        # print(forcasts)
         forecast_input = [
-            forecast_input,
-            # np.sin(np.linspace(0, 20, 200)),
-            # np.sin(np.linspace(0, 20, 400)),
+            request_hist_values,
         ]
         frequency_input = [1]
 
@@ -52,7 +43,9 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
             freq=frequency_input,
         )
 
-        print(point_forecast)
+        print(f"Predictions done| output length: {len(point_forecast[0])}")
+        self.num_requests += 1
+
         for forcast in point_forecast[0]:
             yield timesfm_pb2.future_values(value = forcast)
 
