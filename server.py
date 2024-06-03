@@ -40,11 +40,11 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         #     )
         # print(forcasts)
         forecast_input = [
-            np.sin(np.linspace(0, 20, 100)),
-            np.sin(np.linspace(0, 20, 200)),
-            np.sin(np.linspace(0, 20, 400)),
+            forecast_input,
+            # np.sin(np.linspace(0, 20, 200)),
+            # np.sin(np.linspace(0, 20, 400)),
         ]
-        frequency_input = [0, 1, 2]
+        frequency_input = [1]
 
 
         point_forecast, experimental_quantile_forecast = self.tfm.forecast(
