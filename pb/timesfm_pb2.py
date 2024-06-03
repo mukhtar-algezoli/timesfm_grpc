@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rtimesfm.proto\"\x1c\n\x0bprev_values\x12\r\n\x05value\x18\x01 \x01(\x02\"\x1e\n\rfuture_values\x12\r\n\x05value\x18\x01 \x01(\x02\x32\x41\n\x0bPredictAgri\x12\x32\n\x0epredict_metric\x12\x0c.prev_values\x1a\x0e.future_values(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rtimesfm.proto\"*\n\x0bprev_values\x12\r\n\x05value\x18\x01 \x01(\x02\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\t\",\n\rfuture_values\x12\r\n\x05value\x18\x01 \x01(\x02\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\t2A\n\x0bPredictAgri\x12\x32\n\x0epredict_metric\x12\x0c.prev_values\x1a\x0e.future_values(\x01\x30\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,9 +22,9 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'timesfm_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _globals['_PREV_VALUES']._serialized_start=17
-  _globals['_PREV_VALUES']._serialized_end=45
-  _globals['_FUTURE_VALUES']._serialized_start=47
-  _globals['_FUTURE_VALUES']._serialized_end=77
-  _globals['_PREDICTAGRI']._serialized_start=79
-  _globals['_PREDICTAGRI']._serialized_end=144
+  _globals['_PREV_VALUES']._serialized_end=59
+  _globals['_FUTURE_VALUES']._serialized_start=61
+  _globals['_FUTURE_VALUES']._serialized_end=105
+  _globals['_PREDICTAGRI']._serialized_start=107
+  _globals['_PREDICTAGRI']._serialized_end=172
 # @@protoc_insertion_point(module_scope)

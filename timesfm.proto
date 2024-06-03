@@ -3,10 +3,12 @@ syntax = "proto3";
 
 message prev_values {
     float value=1;
+    string date=2;
 }
 
 message future_values {
     float value=1;
+    string date=2;
 }
 
 
