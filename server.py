@@ -32,16 +32,29 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
             forecast_input.append(request.value)
             # yield timesfm_pb2.future_values(value = request.value)
         
-        print(forecast_input)
+        # print(forecast_input)
         
-        forcasts = self.tfm.forecast(
-            [np.sin(np.linspace(0, 20, 100))],
-            freq=1 #Weekly,
-            )
-        print(forcasts)
+        # forcasts = self.tfm.forecast(
+        #     [np.sin(np.linspace(0, 20, 100))],
+        #     freq=1 #Weekly,
+        #     )
+        # print(forcasts)
+        forecast_input = [
+            np.sin(np.linspace(0, 20, 100)),
+            np.sin(np.linspace(0, 20, 200)),
+            np.sin(np.linspace(0, 20, 400)),
+        ]
+        frequency_input = [0, 1, 2]
 
-        for forcast in forcasts:
-            yield timesfm_pb2.future_values(value = forcast.value)
+
+        point_forecast, experimental_quantile_forecast = self.tfm.forecast(
+            forecast_input,
+            freq=frequency_input,
+        )
+
+        print(point_forecast)
+        for forcast in point_forecast:
+            yield timesfm_pb2.future_values(value = forcast)
 
         
 
