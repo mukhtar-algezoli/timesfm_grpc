@@ -27,6 +27,7 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
     def predict_metric(self, request_iter, context):
         hist_values = []
         for request in request_iter:
+            print(request.value)
             hist_values.append(request.value)
             yield timesfm_pb2.future_values(value = request.value)
         

@@ -7,7 +7,7 @@ import grpc
 import timesfm_pb2_grpc
 import timesfm_pb2
 def run():
-    with grpc.insecure_channel("localhost:50051") as channel:
+    with grpc.insecure_channel("34.121.141.161:50051") as channel:
         print("runing client request")
         stub = timesfm_pb2_grpc.PredictAgriStub(channel)
         # calling function from Server
