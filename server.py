@@ -53,7 +53,7 @@ class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
         )
 
         print(point_forecast)
-        for forcast in point_forecast:
+        for forcast in point_forecast[0]:
             yield timesfm_pb2.future_values(value = forcast)
 
         
