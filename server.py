@@ -16,7 +16,7 @@ class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
         pass
         self.tfm = timesfm.TimesFm(
             context_len=480,
-            horizon_len=60,
+            horizon_len=12,
             input_patch_len=32,
             output_patch_len=128,
             num_layers=20,
