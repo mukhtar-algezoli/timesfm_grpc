@@ -4,12 +4,12 @@
 # replace [GRPC_METHOD_NAME] with the method name (name after rpc command)
 # replace [GRPC_SERVICE_RETURN_TYPE] with the return type that was declared in a message
 import grpc
-import pb.timesfm_pb2
-import pb.timesfm_pb2_grpc
+import timesfm_pb2
+import timesfm_pb2_grpc
 from concurrent import futures
 import timesfm
 
-class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
+class Predict_Metrics(timesfm_pb2_grpc.PredictAgriServicer):
     def __init__(self) -> None:
         super().__init__()
         pass
@@ -28,7 +28,7 @@ class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
         hist_values = []
         for request in request_iter:
             hist_values.append(request.value)
-            yield pb.timesfm_pb2.future_values(value = request.value)
+            yield timesfm_pb2.future_values(value = request.value)
         
         # print(hist_values)
         
@@ -41,7 +41,7 @@ class Predict_Metrics(pb.timesfm_pb2_grpc.PredictAgriServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    pb.timesfm_pb2_grpc.add_PredictAgriServicer_to_server(
+    timesfm_pb2_grpc.add_PredictAgriServicer_to_server(
         Predict_Metrics(), server
     )
     server.add_insecure_port("[::]:50051")

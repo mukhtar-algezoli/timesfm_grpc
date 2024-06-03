@@ -4,15 +4,15 @@
 # replace [GRPC_METHOD_NAME] with the method name (name after rpc command)
 # replace [GRPC_SERVICE_input_TYPE] with the input type that was declared in a message
 import grpc
-import pb.timesfm_pb2_grpc
-import pb.timesfm_pb2
+import timesfm_pb2_grpc
+import timesfm_pb2
 def run():
     with grpc.insecure_channel("localhost:50051") as channel:
         print("runing client request")
-        stub = pb.timesfm_pb2_grpc.PredictAgriStub(channel)
+        stub = timesfm_pb2_grpc.PredictAgriStub(channel)
         # calling function from Server
         # feature = stub.GetDirMeth(test_pb2.point(lang=35, lat=22))
-        features = stub.predict_metric(iter([pb.timesfm_pb2.prev_values(value=i, date=f"{i}/2/2024") for i in range(4,9)]))
+        features = stub.predict_metric(iter([timesfm_pb2.prev_values(value=i, date=f"{i}/2/2024") for i in range(4,9)]))
         print("server streaming:")
         outputs = []
         for feature in features:
